@@ -1,0 +1,58 @@
+name: Verify MIT license packaging
+on:
+  push:
+    branches: [codex/verify-mit-license]
+permissions:
+  contents: read
+jobs:
+  offline-tests-and-wheel:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      QT_QPA_PLATFORM: offscreen
+      PYTEST_DISABLE_PLUGIN_AUTOLOAD: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: 6b180529fb2147f78a8047f81cee9c3918ac88da
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install build and test dependencies
+        run: |
+          python -m pip install --only-binary=:all: "setuptools>=77.0.3" wheel "pytest>=8,<10" "idna>=3.7,<4" "sqlcipher3>=0.6,<0.7" "PySide6>=6.8,<7"
+      - name: Test with IP sockets and DNS disabled
+        run: |
+          mkdir -p "$RUNNER_TEMP/offline"
+          cat > "$RUNNER_TEMP/offline/sitecustomize.py" <<'PY'
+          import socket
+          import sys
+          def offline(event, args):
+              if event == "socket.__new__" and args[1] in (socket.AF_INET, socket.AF_INET6):
+                  raise AssertionError("Network sockets are disabled for tests")
+              if event in ("socket.getaddrinfo", "socket.gethostbyname", "socket.gethostbyaddr", "socket.getnameinfo", "socket.connect", "socket.sendto"):
+                  raise AssertionError("Network is disabled for tests")
+          sys.addaudithook(offline)
+          PY
+          PYTHONPATH="$RUNNER_TEMP/offline:src" python -m pytest -q -rs
+      - name: Build wheel offline and verify distributed notices
+        run: |
+          python -m pip wheel . --no-index --no-deps --no-build-isolation --wheel-dir "$RUNNER_TEMP/wheels"
+          python - <<'PY'
+          import email
+          import os
+          from pathlib import Path
+          from zipfile import ZipFile
+          wheel, = (Path(os.environ["RUNNER_TEMP"]) / "wheels").glob("*.whl")
+          with ZipFile(wheel) as archive:
+              metadata_name, = [p for p in archive.namelist() if p.endswith(".dist-info/METADATA")]
+              directory = metadata_name.rsplit("/", 1)[0]
+              metadata = email.message_from_bytes(archive.read(metadata_name))
+              assert metadata["License-Expression"] == "MIT"
+              assert "LICENSE" in metadata.get_all("License-File", [])
+              assert archive.read(directory + "/licenses/LICENSE") == Path("LICENSE").read_bytes()
+              psl = "account_privacy/resources/public_suffix_list.dat"
+              assert archive.read(psl) == (Path("src") / psl).read_bytes()
+          print("Verified MIT wheel metadata, license bytes and bundled third-party notice.")
+          PY
