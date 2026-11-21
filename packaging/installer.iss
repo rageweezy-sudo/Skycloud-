@@ -24,6 +24,7 @@ WizardStyle=modern
 UninstallDisplayIcon={app}\AccountPrivacy.exe
 
 [Files]
+Source: "..\LICENSE"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#PackageDir}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
