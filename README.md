@@ -76,3 +76,7 @@ Before distributing the installer, install it on clean Windows 11 x64 and run th
 ## Development tests
 
 With pytest installed, run `python -m pytest -q`. The ordinary suite uses synthetic data and test doubles. The encryption, Credential Manager, and Qt tests run when their respective runtime capabilities are present. In a workspace without pytest, run the same unittest-based cases with `PYTHONPATH=src python -B -m unittest discover -s tests -v` from a POSIX shell.
+
+## License
+
+Account Privacy is licensed under the [MIT License](LICENSE). The bundled [Public Suffix List](src/account_privacy/resources/public_suffix_list.dat) carries its own Mozilla Public License 2.0 notice.
