@@ -1,0 +1,10 @@
+Dear Privacy Team,
+
+I am requesting access to the personal data you hold about me under {law}. The email associated with my account is {email}.
+
+Please provide a copy of my personal data and the information about its collection, use, sources, disclosures, and retention that I am entitled to receive under the applicable law. Please provide the response electronically through a secure method.
+
+If you need to verify my identity, please describe the minimum information needed and how I can provide it securely.
+
+Thank you,
+{name}

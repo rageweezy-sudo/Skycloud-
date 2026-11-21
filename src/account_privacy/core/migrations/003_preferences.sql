@@ -1,0 +1,4 @@
+CREATE TABLE preferences (
+    name TEXT PRIMARY KEY NOT NULL,
+    value TEXT NOT NULL
+) WITHOUT ROWID;

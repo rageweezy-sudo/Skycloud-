@@ -1,0 +1,11 @@
+{
+  "messages": [
+    {"item_id": "001", "sender": "Accounts <accounts@example.org>", "subject": "Welcome to Example"},
+    {"item_id": "002", "sender": "Billing <orders@example.org>", "subject": "Your order confirmation"},
+    {"item_id": "003", "sender": "notify@alice.github.io", "subject": "Verify your email"},
+    {"item_id": "004", "sender": "reset@example.net", "subject": "Reset your password"},
+    {"item_id": "005", "sender": "news@example.com", "subject": "September digest"},
+    {"item_id": "006", "sender": "updates@sendgrid.net", "subject": "Welcome to our newsletter"},
+    {"item_id": "007", "sender": "news@example.com", "subject": "September digest", "unsubscribe": "<mailto:unsubscribe@example.com>"}
+  ]
+}

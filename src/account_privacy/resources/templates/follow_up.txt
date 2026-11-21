@@ -1,0 +1,6 @@
+Dear Privacy Team,
+
+I am following up on my personal data request for the account associated with {email}, sent on {sent_date} under {law}. Please let me know its status and your expected response date.
+
+Thank you,
+{name}

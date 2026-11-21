@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "contacts": [
+    {
+      "domain": "apple.com",
+      "kind": "portal",
+      "destination": "https://privacy.apple.com/",
+      "source": "Apple Data and Privacy. Verify the destination before sending personal data."
+    },
+    {
+      "domain": "microsoft.com",
+      "kind": "portal",
+      "destination": "https://account.microsoft.com/privacy",
+      "source": "Microsoft account privacy dashboard. Verify the destination before sending personal data."
+    },
+    {
+      "domain": "google.com",
+      "kind": "portal",
+      "destination": "https://myaccount.google.com/data-and-privacy",
+      "source": "Google Account Data and privacy. Verify the destination before sending personal data."
+    }
+  ],
+  "aliases": {
+    "icloud.com": "apple.com"
+  }
+}

@@ -1,0 +1,8 @@
+Dear Privacy Team,
+
+I am requesting deletion of eligible personal data associated with my account ({email}) under {law}. Please confirm what you deleted and explain any retention required or permitted by law.
+
+If you need to verify my identity, please describe the minimum information needed and how I can provide it securely.
+
+Thank you,
+{name}
